@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#100c0a">
+</head>
+<body>
+<title>Brasa e Halloween</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Brasa e Halloween · 01.11 · 20h30. Paga o pix, manda a ficha, vira culpado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Creepster&display=swap">
+<style>
+/* layout: pôster vertical. capa = boca vista por dentro, dentes e presas em retícula vermelha sobre preto, letreiro pincelado e etiquetas empilhadas com letreiro pincelado e etiquetas → contagem → ficha (pix + formulário com prévia do fichamento) → parede de culpados → comanda do bar */
+:root{
+  --carvao:#100c0a;
+  --fuligem:#1b1512;
+  --placa:#0a0807;
+  --borda:#3a2f29;
+  --osso:#f2e8d7;
+  --osso-2:#b3a491;
+  --brasa:#e3261c;
+  --sangue:#c9151b;
+  --chama:#ffa21a;
+  --brasa-escura:#5c0b07;
+  --acido:#d9e540;
+  --f-display:"Anton","Impact","Arial Narrow Bold",sans-serif;
+  --f-horror:"Creepster","Impact","Arial Narrow Bold",fantasy;
+  --f-body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --raio:4px;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--carvao);color:var(--osso);font-family:var(--f-body);font-size:16px;line-height:1.55;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.13;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+a{color:inherit}
+img{max-width:100%;display:block}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acido);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--f-mono)}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+
+/* aviso de demonstração */
+.demo{background:var(--acido);color:var(--carvao);font-family:var(--f-mono);font-size:12px;letter-spacing:.02em}
+.demo .wrap{padding-block:8px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;isolation:isolate;background:var(--placa);border-bottom:1px solid var(--borda)}
+#capa{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 22% 48%,rgba(10,8,7,.78),rgba(10,8,7,0) 70%)}
+.hero::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;filter:contrast(1.4);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");background-size:240px;mix-blend-mode:multiply;opacity:.55}
+.hero-in{position:relative;z-index:2;padding-block:112px 100px;display:flex;flex-direction:column;align-items:flex-start;gap:22px;min-height:min(860px,max(640px,92vh))}
+.etq{display:inline-block;background:var(--sangue);color:var(--placa);font-family:var(--f-body);font-stretch:68%;font-weight:800;text-transform:uppercase;letter-spacing:0;line-height:1;
+  padding:6px 12px 5px;border:2.5px solid var(--placa);outline:1.5px solid rgba(242,232,215,.8);font-size:clamp(18px,4.8vw,26px);filter:url(#aspero-leve);text-decoration:none}
+.etq-topo{transform:rotate(-4deg);font-size:clamp(16px,4.2vw,22px)}
+.logo{display:flex;flex-direction:column;align-items:flex-start;font-family:var(--f-horror);font-weight:400;color:var(--osso);line-height:.84;
+  transform:rotate(-5deg) skewX(-4deg);transform-origin:0 50%;filter:url(#aspero);margin-block:0 10px;
+  -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -22 0 0 0 17.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -22 0 0 0 17.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");text-shadow:0 0 1px rgba(242,232,215,.4)}
+.logo-1{font-size:clamp(6.6rem,31vw,16.5rem);margin-left:-.04em;letter-spacing:.01em}
+.logo-2{font-size:clamp(3.3rem,15vw,8rem);margin-top:-.02em;margin-left:.02em;display:flex;align-items:baseline;gap:.16em}
+.logo-2 small{font-size:.5em}
+.acoes{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-top:4px}
+.acoes .etq{min-height:48px;display:inline-flex;align-items:center;cursor:pointer;transition:transform .15s,background .15s,color .15s}
+.acoes .etq:nth-child(2){margin-left:clamp(20px,7vw,56px)}
+.acoes .etq:hover{background:var(--osso);transform:translate(-2px,-2px)}
+.acoes .etq:focus-visible{outline:3px solid var(--acido)}
+.etq-escura{background:var(--placa);color:var(--osso);border-color:var(--placa)}
+.etq-escura:hover{color:var(--placa)}
+.etq-base{margin-top:auto;font-size:clamp(15px,4vw,22px)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:var(--raio);
+  font-family:var(--f-mono);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;cursor:pointer;border:0;transition:transform .15s,background .15s,color .15s}
+.btn:active{transform:translateY(1px)}
+.btn-brasa{background:var(--brasa);color:var(--osso)}
+.btn-brasa:hover{background:var(--osso);color:var(--carvao)}
+.btn-linha{background:transparent;color:var(--osso);box-shadow:inset 0 0 0 1.5px var(--osso)}
+.btn-linha:hover{background:var(--osso);color:var(--carvao)}
+.btn[disabled]{opacity:.55;cursor:progress}
+
+/* ---------- contagem ---------- */
+.contagem{background:var(--fuligem);border-bottom:1px solid var(--borda)}
+.contagem-in{padding-block:34px 38px;display:grid;gap:14px}
+.rotulo{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:var(--osso-2)}
+.relogio{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:0 clamp(10px,3.5vw,36px)}
+.relogio div{display:flex;flex-direction:column;gap:6px;position:relative}
+.relogio b{font-family:var(--f-display);font-weight:400;font-size:clamp(3.2rem,15vw,8.5rem);line-height:.9;font-variant-numeric:tabular-nums;color:var(--osso)}
+.relogio div:last-child b{color:var(--brasa)}
+.relogio span{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--osso-2)}
+.contagem-data{font-size:15px;color:var(--osso-2)}
+.contagem-data strong{color:var(--osso);font-weight:600}
+
+/* ---------- seções ---------- */
+.secao{padding-block:clamp(56px,10vw,104px);border-bottom:1px solid var(--borda)}
+.secao-cab{display:grid;gap:12px;margin-bottom:clamp(28px,5vw,44px);max-width:640px}
+.tag{justify-self:start;font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--osso);background:var(--brasa);padding:3px 8px;transform:rotate(-2deg)}
+.secao-cab h2{font-family:var(--f-display);font-weight:400;font-size:clamp(2.6rem,9vw,5rem);line-height:.95;text-transform:uppercase}
+.secao-cab p{color:var(--osso-2);font-size:17px;max-width:52ch}
+
+/* ficha */
+.passos{list-style:none;margin:0;padding:0;display:grid;gap:clamp(36px,6vw,56px);counter-reset:p}
+.passo{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;counter-increment:p}
+.passo::before{content:counter(p);grid-row:span 2;font-family:var(--f-display);font-size:44px;line-height:1;color:var(--brasa);width:34px}
+.passo h3{font-family:var(--f-body);font-weight:800;font-size:22px;text-transform:lowercase;letter-spacing:-.01em;align-self:center}
+.passo-corpo{grid-column:2;display:grid;gap:16px;min-width:0}
+.passo-corpo>p{color:var(--osso-2);max-width:56ch}
+
+.pix{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;background:var(--fuligem);border:1px solid var(--borda);border-radius:6px;padding:18px}
+.pix-qr{background:var(--osso);padding:10px;border-radius:var(--raio);width:176px;height:176px}
+.pix-qr img,.pix-qr canvas{width:156px!important;height:156px!important}
+.pix-info{display:grid;gap:12px;min-width:0}
+.pix-valor{font-family:var(--f-display);font-size:44px;line-height:1;color:var(--osso)}
+.pix-valor small{font-family:var(--f-mono);font-size:12px;color:var(--osso-2);letter-spacing:.1em;margin-left:6px;vertical-align:middle}
+.pix-chave{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.pix-chave code{font-family:var(--f-mono);font-size:15px;background:var(--placa);border:1px solid var(--borda);padding:8px 10px;border-radius:var(--raio);user-select:all;word-break:break-all}
+.btn-mini{min-height:38px;padding:0 12px;font-size:12px;background:transparent;box-shadow:inset 0 0 0 1px var(--osso-2);color:var(--osso)}
+.btn-mini:hover{box-shadow:inset 0 0 0 1px var(--osso);background:var(--osso);color:var(--carvao)}
+.mini{font-size:13px;color:var(--osso-2)}
+
+/* formulário */
+.form{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:22px 32px;align-items:start}
+.campos{display:grid;gap:18px;min-width:0}
+.campo{display:grid;gap:6px}
+.campo label,.campo .lbl{font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--osso)}
+.campo .dica{font-size:13px;color:var(--osso-2)}
+.campo input[type=text],.campo input[type=tel]{width:100%;height:50px;padding:0 14px;background:var(--placa);border:1px solid var(--borda);border-radius:var(--raio);font-size:17px;transition:border-color .15s}
+.campo input:focus{border-color:var(--brasa);outline:none;box-shadow:0 0 0 3px rgba(255,74,28,.25)}
+.arquivo{position:relative;display:flex;align-items:center;gap:12px;min-height:58px;padding:10px 14px;border:1.5px dashed var(--borda);border-radius:var(--raio);background:var(--placa);cursor:pointer;transition:border-color .15s}
+.arquivo:hover,.arquivo:focus-within{border-color:var(--brasa)}
+.arquivo input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.arquivo-ic{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--brasa);color:var(--carvao);font-weight:800;font-family:var(--f-mono)}
+.arquivo-txt{font-size:15px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arquivo.ok{border-style:solid;border-color:var(--osso-2)}
+.arquivo.ok .arquivo-ic{background:var(--acido)}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:15px;cursor:pointer}
+.check input{width:22px;height:22px;accent-color:var(--brasa);flex:none;margin-top:1px}
+.erro{min-height:1.4em;color:var(--chama);font-size:15px;font-weight:500}
+.enviar{display:grid;gap:10px;justify-items:start}
+.enviar .btn{min-width:220px}
+
+.previa{position:sticky;top:20px;display:grid;gap:10px}
+.previa .rotulo{text-align:center}
+
+/* ---------- fichamento (mugshot) ---------- */
+.mug{margin:0;display:grid;background:var(--placa);border:1px solid var(--borda);border-radius:3px;overflow:hidden;transition:transform .2s}
+.mug-foto{position:relative;aspect-ratio:4/5;max-width:100%;background:#2a2320;overflow:hidden}
+.mug-foto img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.18) brightness(.95);transition:filter .3s}
+.mug:hover .mug-foto img{filter:grayscale(.15) contrast(1.05)}
+.mug-regua{position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(180deg,transparent 0 calc(20% - 1px),rgba(242,232,215,.35) calc(20% - 1px) 20%)}
+.mug-regua i{position:absolute;left:5px;font-style:normal;font-family:var(--f-mono);font-size:9px;color:var(--osso);opacity:.75;transform:translateY(-100%)}
+.mug-carimbo{position:absolute;right:8%;bottom:10%;transform:rotate(-13deg);font-family:var(--f-display);font-size:clamp(15px,4.6vw,22px);letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 9px;border:2.5px solid currentColor;border-radius:3px;line-height:1.2;color:var(--brasa);background:rgba(16,12,10,.35);mix-blend-mode:normal}
+.mug.pendente .mug-carimbo{color:var(--osso-2);border-style:dashed;font-size:clamp(12px,3.6vw,16px)}
+.mug-placa{display:grid;gap:2px;padding:10px 10px 12px;font-family:var(--f-mono);text-transform:uppercase;border-top:1px solid var(--borda)}
+.mug-dep{font-size:9.5px;letter-spacing:.14em;color:var(--osso-2)}
+.mug-nome{font-family:var(--f-display);font-weight:400;font-size:clamp(17px,4.4vw,22px);letter-spacing:.02em;line-height:1.1;color:var(--osso);overflow-wrap:anywhere}
+.mug-num{font-size:11px;color:var(--brasa);letter-spacing:.1em}
+.mug-vazio{position:absolute;inset:0;display:grid;place-items:center;color:var(--osso-2);font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.12em;text-align:center;padding:16px}
+.mug-vazio svg{width:58%;opacity:.35}
+.mug-exemplo{position:absolute;left:8px;top:8px;font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:var(--acido);color:var(--carvao);padding:2px 6px}
+
+/* sucesso */
+.sucesso{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;align-items:center;background:var(--fuligem);border:1px solid var(--borda);border-radius:6px;padding:20px}
+.sucesso h3{font-family:var(--f-display);font-weight:400;font-size:clamp(2.2rem,7vw,3.4rem);text-transform:uppercase;line-height:1;color:var(--brasa)}
+.sucesso p{color:var(--osso-2);margin-top:10px;max-width:46ch}
+
+/* ---------- parede ---------- */
+.termometro{display:grid;gap:10px;margin-bottom:28px;max-width:640px}
+.termo-linha{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:var(--f-mono);font-size:13px;color:var(--osso-2);text-transform:uppercase;letter-spacing:.1em}
+.termo-linha strong{font-family:var(--f-display);font-weight:400;font-size:34px;color:var(--osso);letter-spacing:0;font-variant-numeric:tabular-nums}
+.termo-barra{height:10px;border-radius:999px;background:var(--fuligem);border:1px solid var(--borda);overflow:hidden}
+.termo-barra span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brasa-escura),var(--brasa),var(--chama));transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.mural{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.mural .mug:nth-child(3n+1){transform:rotate(-.6deg)}
+.mural .mug:nth-child(3n+2){transform:rotate(.5deg)}
+.mural .mug:hover{transform:rotate(0) translateY(-3px)}
+.mural-vazio{border:1.5px dashed var(--borda);border-radius:6px;padding:28px 20px;color:var(--osso-2);text-align:center;font-size:16px}
+
+/* ---------- comanda ---------- */
+.comanda-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:clamp(32px,6vw,72px);align-items:start}
+.casa{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.casa span{font-family:var(--f-body);font-stretch:72%;font-weight:800;font-size:clamp(17px,4.4vw,22px);text-transform:uppercase;letter-spacing:.01em;background:var(--sangue);color:var(--placa);border:2px solid var(--placa);
+  padding:6px 12px;box-shadow:3px 3px 0 var(--osso)}
+.casa span:nth-child(1){transform:rotate(-2deg)}
+.casa span:nth-child(2){transform:rotate(1.5deg)}
+.casa span:nth-child(3){transform:rotate(-1deg)}
+.recibo{position:relative;background:var(--osso);color:var(--carvao);font-family:var(--f-mono);font-size:14px;line-height:1.5;padding:26px 22px 30px;
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;
+  transform:rotate(1deg);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.recibo-cab{text-align:center;display:grid;gap:2px;padding-bottom:12px;border-bottom:1.5px dashed var(--carvao)}
+.recibo-cab strong{font-family:var(--f-display);font-weight:400;font-size:26px;letter-spacing:.04em;line-height:1.1}
+.recibo-cab span{font-size:12px}
+.recibo h4{margin:14px 0 4px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.recibo ul{list-style:none;margin:0;padding:0}
+.recibo li{display:flex;gap:8px}
+.recibo li b{font-weight:600;min-width:1.5ch}
+.recibo-total{margin-top:14px;padding-top:12px;border-top:1.5px dashed var(--carvao);display:flex;justify-content:space-between;align-items:baseline;font-weight:600;text-transform:uppercase}
+.recibo-total span:last-child{font-family:var(--f-display);font-weight:400;font-size:26px}
+.recibo-pe{margin-top:14px;text-align:center;font-size:12px}
+.barras{height:38px;margin:10px auto 0;width:80%;background:repeating-linear-gradient(90deg,var(--carvao) 0 2px,transparent 2px 4px,var(--carvao) 4px 7px,transparent 7px 9px,var(--carvao) 9px 10px,transparent 10px 13px)}
+
+/* rodapé */
+.rodape{padding-block:36px 48px;color:var(--osso-2);font-size:14px}
+.rodape .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px}
+.rodape strong{color:var(--osso);font-weight:600}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:60;
+  background:var(--osso);color:var(--carvao);font-family:var(--f-mono);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:10px 16px;border-radius:var(--raio);transition:.2s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:820px){
+  .form{grid-template-columns:minmax(0,1fr)}
+  .previa{position:static;max-width:240px;order:-1}
+  .comanda-grid{grid-template-columns:minmax(0,1fr)}
+  .sucesso{grid-template-columns:minmax(0,1fr)}
+  .sucesso .mug{max-width:220px}
+}
+@media (max-width:520px){
+  .pix{grid-template-columns:minmax(0,1fr)}
+  .pix-qr{justify-self:start}
+  .passo{grid-template-columns:minmax(0,1fr)}
+  .passo::before{grid-row:auto;font-size:36px}
+  .passo-corpo{grid-column:1}
+  .mural{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .enviar .btn{width:100%}
+  .hero-in{padding-block:84px 76px;min-height:620px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+
+<div class="demo" id="demo" hidden><div class="wrap">modo demonstração · nada fica salvo até ligar o supabase (passo a passo no LEIA-ME)</div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="aspero" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".06" numOctaves="2" seed="3" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="aspero-leve" x="-3%" y="-10%" width="106%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="1" seed="9" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="2.5" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+
+<header class="hero">
+  <canvas id="capa" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <span class="etq etq-topo">01 de novembro · 20h30</span>
+    <h1 class="logo" aria-label="Brasa e Halloween"><span class="logo-1">BRASA</span><span class="logo-2"><small>e</small>HALLOWEEN</span></h1>
+    <nav class="acoes" aria-label="ações">
+      <a class="etq" href="#ficha">me entregar · r$ 16,50</a>
+      <a class="etq etq-escura" href="#parede">ver a parede de culpados</a>
+    </nav>
+    <span class="etq etq-base" id="local-etq">salão de festas · parque renascença florença</span>
+  </div>
+</header>
+
+<section class="contagem" aria-labelledby="cd-titulo">
+  <div class="wrap contagem-in">
+    <p class="rotulo" id="cd-titulo">até a brasa acender</p>
+    <div class="relogio" id="relogio" role="timer" aria-live="off">
+      <div><b id="cd-d">00</b><span>dias</span></div>
+      <div><b id="cd-h">00</b><span>horas</span></div>
+      <div><b id="cd-m">00</b><span>min</span></div>
+      <div><b id="cd-s">00</b><span>seg</span></div>
+    </div>
+    <p class="contagem-data" id="cd-data"><strong>domingo, 1º de novembro</strong> · 20h30<span id="local-linha"></span></p>
+  </div>
+</section>
+
+<section class="secao" id="ficha" aria-labelledby="ficha-titulo">
+  <div class="wrap">
+    <header class="secao-cab">
+      <span class="tag">ficha</span>
+      <h2 id="ficha-titulo">como virar culpado</h2>
+      <p>a entrada é r$ 16,50. paga o pix, preenche a ficha e sua cara vai pra parede.</p>
+    </header>
+
+    <ol class="passos">
+      <li class="passo">
+        <h3>faz o pix</h3>
+        <div class="passo-corpo">
+          <div class="pix">
+            <div class="pix-qr" id="pix-qr" role="img" aria-label="QR code do pix de 16 reais e 50 centavos"></div>
+            <div class="pix-info">
+              <p class="pix-valor">R$ 16,50<small>por pessoa</small></p>
+              <div class="pix-chave">
+                <code id="pix-chave-txt">estudiocerise@gmail.com</code>
+                <button class="btn btn-mini" type="button" id="copiar-chave">copiar chave</button>
+              </div>
+              <button class="btn btn-brasa" type="button" id="copiar-cc">copiar pix copia e cola</button>
+              <p class="mini">o copia e cola já vem com o valor. a chave é do estúdio cerise. depois salva o comprovante, print serve.</p>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="passo">
+        <h3>preenche a ficha</h3>
+        <div class="passo-corpo" id="ficha-corpo">
+          <form class="form" id="form" novalidate>
+            <div class="campos">
+              <div class="campo">
+                <label for="nome">nome</label>
+                <input type="text" id="nome" name="nome" maxlength="40" autocomplete="name" placeholder="do jeito que vai na placa">
+              </div>
+              <div class="campo">
+                <label for="tel">whatsapp</label>
+                <input type="tel" id="tel" name="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(98) 9 0000-0000">
+                <span class="dica">só a organização vê.</span>
+              </div>
+              <div class="campo">
+                <span class="lbl" id="foto-lbl">foto de fichamento</span>
+                <label class="arquivo" id="foto-box">
+                  <input type="file" id="foto" accept="image/*" aria-labelledby="foto-lbl">
+                  <span class="arquivo-ic" aria-hidden="true">+</span>
+                  <span class="arquivo-txt" id="foto-txt">escolher foto</span>
+                </label>
+                <span class="dica">de frente, rosto aparecendo. essa vai pra parede.</span>
+              </div>
+              <div class="campo">
+                <span class="lbl" id="comp-lbl">comprovante do pix</span>
+                <label class="arquivo" id="comp-box">
+                  <input type="file" id="comp" accept="image/*,application/pdf" aria-labelledby="comp-lbl">
+                  <span class="arquivo-ic" aria-hidden="true">+</span>
+                  <span class="arquivo-txt" id="comp-txt">anexar print ou pdf</span>
+                </label>
+                <span class="dica">só a organização vê.</span>
+              </div>
+              <label class="check"><input type="checkbox" id="aceite"> topo minha foto e meu nome na parede de culpados.</label>
+              <div class="enviar">
+                <p class="erro" id="erro" role="alert"></p>
+                <button class="btn btn-brasa" type="submit" id="btn-enviar">me entregar</button>
+              </div>
+            </div>
+            <aside class="previa" aria-label="prévia da sua ficha">
+              <p class="rotulo">sua ficha</p>
+              <div id="previa-card"></div>
+            </aside>
+          </form>
+        </div>
+      </li>
+
+      <li class="passo">
+        <h3>vira culpado</h3>
+        <div class="passo-corpo">
+          <p>sua cara entra na parede com o carimbo de em análise. quando o pix for conferido, a ficha vira culpado. aí é só aparecer domingo, 1º de novembro, às 20h30, no salão de festas do parque renascença florença.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="secao" id="parede" aria-labelledby="parede-titulo">
+  <div class="wrap">
+    <header class="secao-cab">
+      <span class="tag">parede</span>
+      <h2 id="parede-titulo">parede de culpados</h2>
+      <p>quem já se entregou. passa o mouse ou toca na foto pra ver colorido.</p>
+    </header>
+    <div class="termometro" aria-live="polite">
+      <div class="termo-linha"><span>fichados</span><span><strong id="contador">0</strong> / <span id="limite">50</span></span></div>
+      <div class="termo-barra"><span id="termo"></span></div>
+    </div>
+    <div class="mural" id="mural"></div>
+    <p class="mural-vazio" id="mural-vazio" hidden>ninguém se entregou ainda. a parede tá esperando a primeira cara.</p>
+  </div>
+</section>
+
+<section class="secao" id="comanda" aria-labelledby="comanda-titulo">
+  <div class="wrap comanda-grid">
+    <header class="secao-cab">
+      <span class="tag">comanda</span>
+      <h2 id="comanda-titulo">o que tá na brasa</h2>
+      <p>a casa prepara três coisas. o resto tá na comanda.</p>
+      <div class="casa"><span>ponche</span><span>jelly shots</span><span>balinhas</span></div>
+    </header>
+
+    <div class="recibo" aria-label="lista de bebidas">
+      <div class="recibo-cab">
+        <strong>BRASA &amp; HALLOWEEN</strong>
+        <span>comanda nº 0031 · mesa: todas</span>
+        <span>01/11/2026 · 20:30</span>
+      </div>
+      <h4>da casa</h4>
+      <ul><li><b>·</b>ponche</li><li><b>·</b>jelly shots de uva e morango</li><li><b>·</b>balinhas</li></ul>
+      <h4>cerveja</h4>
+      <ul><li><b>·</b>amstel</li><li><b>·</b>brahma duplo malte</li></ul>
+      <h4>destilados</h4>
+      <ul><li><b>·</b>vodka orloff</li><li><b>·</b>vodka leonoff retrô</li><li><b>·</b>gin dry rock's</li><li><b>·</b>cachaça 51</li></ul>
+      <h4>pra misturar</h4>
+      <ul><li><b>·</b>energético baly (melancia e tradicional)</li><li><b>·</b>coca-cola zero</li><li><b>·</b>guaraná antarctica zero</li><li><b>·</b>sprite limão</li><li><b>·</b>coquetel cantinho do vale</li></ul>
+      <h4>e também</h4>
+      <ul><li><b>·</b>água</li><li><b>·</b>gelo</li></ul>
+      <div class="recibo-total"><span>seu total</span><span>R$ 16,50</span></div>
+      <p class="recibo-pe">não aceitamos álibi</p>
+      <div class="barras" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="wrap">
+    <p><strong>brasa e halloween</strong>: o nome é uma referência à brasa &amp; galeto, do iago.</p>
+    <p>pix para a chave do estúdio cerise.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+/* ==== CONFIGURAÇÃO: preencha com os dados do seu projeto Supabase ==== */
+const CONFIG = {
+  SUPABASE_URL: "https://wntdaoyriydwktprtsra.supabase.co",        // ex: "https://abcdxyz.supabase.co"
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndudGRhb3lyaXlkd2t0cHJ0c3JhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3MTYxNzIsImV4cCI6MjEwODI5MjE3Mn0.usanxMb8qctmFmGkpoxbkeuzt3XFmYlEHyKPZH9i-gg",   // a chave "anon public" (Project Settings → API)
+  PIX_CHAVE: "estudiocerise@gmail.com",
+  PIX_NOME: "ESTUDIO CERISE",   // sem acento, até 25 letras
+  PIX_CIDADE: "SAO LUIS",       // sem acento, até 15 letras
+  VALOR: 16.50,
+  LIMITE: 50,
+  DATA_FESTA: "2026-11-01T20:30:00-03:00",
+  LOCAL: "salão de festas do parque renascença florença", // aparece embaixo da contagem (o texto da abertura fica no HTML, na etiqueta local-etq)
+  CAPA: ""                      // opcional: caminho de uma foto (ex: "capa.jpg") pra virar a retícula da abertura
+};
+
+(function(){
+const $ = s => document.querySelector(s);
+const DEMO = !(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY);
+let sb = null;
+let culpados = [];
+
+/* ---------- utilidades ---------- */
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove("on"),1800); }
+async function copiar(texto, ok){
+  try{ await navigator.clipboard.writeText(texto); toast(ok); }
+  catch(e){
+    const ta=document.createElement("textarea"); ta.value=texto; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    let feito=false; try{ feito=document.execCommand("copy"); }catch(_){}
+    ta.remove(); toast(feito?ok:"segura o dedo no texto pra copiar");
+  }
+}
+function uid(){ return (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36)+Math.random().toString(36).slice(2)); }
+function pad(n){ return String(n).padStart(2,"0"); }
+function fotoURL(path){ return CONFIG.SUPABASE_URL + "/storage/v1/object/public/fotos/" + encodeURI(path); }
+
+/* ---------- pix copia e cola (BR Code estático) ---------- */
+function tlv(id,v){ return id + String(v.length).padStart(2,"0") + v; }
+function crc16(s){ let c=0xFFFF; for(let i=0;i<s.length;i++){ c^=s.charCodeAt(i)<<8; for(let j=0;j<8;j++){ c=(c&0x8000)?((c<<1)^0x1021):(c<<1); c&=0xFFFF; } } return c.toString(16).toUpperCase().padStart(4,"0"); }
+function pixPayload(){
+  const conta = tlv("00","br.gov.bcb.pix") + tlv("01",CONFIG.PIX_CHAVE);
+  let p = tlv("00","01") + tlv("26",conta) + tlv("52","0000") + tlv("53","986") + tlv("54",CONFIG.VALOR.toFixed(2)) +
+          tlv("58","BR") + tlv("59",CONFIG.PIX_NOME.slice(0,25)) + tlv("60",CONFIG.PIX_CIDADE.slice(0,15)) + tlv("62",tlv("05","BRASAHALLOWEEN")) + "6304";
+  return p + crc16(p);
+}
+const PIX = pixPayload();
+$("#pix-chave-txt").textContent = CONFIG.PIX_CHAVE;
+$("#copiar-chave").addEventListener("click",()=>copiar(CONFIG.PIX_CHAVE,"chave copiada"));
+$("#copiar-cc").addEventListener("click",()=>copiar(PIX,"pix copiado"));
+try{ new QRCode($("#pix-qr"),{text:PIX,width:156,height:156,colorDark:"#100c0a",colorLight:"#f2e8d7",correctLevel:QRCode.CorrectLevel.M}); }
+catch(e){ $("#pix-qr").hidden = true; }
+
+/* ---------- contagem ---------- */
+const alvo = Date.parse(CONFIG.DATA_FESTA);
+if(CONFIG.LOCAL){ $("#local-linha").textContent = " · " + CONFIG.LOCAL; }
+function tique(){
+  const diff = alvo - Date.now();
+  if(diff <= 0){
+    ["#cd-d","#cd-h","#cd-m","#cd-s"].forEach(s=>$(s).textContent="00");
+    $("#cd-titulo").textContent = diff > -8*3600e3 ? "a brasa tá acesa" : "a brasa apagou. até o próximo";
+    return;
+  }
+  const s=Math.floor(diff/1000);
+  $("#cd-d").textContent=pad(Math.floor(s/86400));
+  $("#cd-h").textContent=pad(Math.floor(s%86400/3600));
+  $("#cd-m").textContent=pad(Math.floor(s%3600/60));
+  $("#cd-s").textContent=pad(s%60);
+}
+tique(); setInterval(tique,1000);
+
+/* ---------- card de fichamento ---------- */
+const SILHUETA = '<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="36" r="18" fill="currentColor"/><path d="M14 100c0-22 16-36 36-36s36 14 36 36z" fill="currentColor"/></svg>';
+function card({nome, foto, numero, confirmado, exemplo}){
+  const fig=document.createElement("figure");
+  fig.className="mug"+(confirmado?"":" pendente");
+  const caixa=document.createElement("div"); caixa.className="mug-foto";
+  if(foto){ const img=document.createElement("img"); img.src=foto; img.alt="foto de "+(nome||"culpado"); img.loading="lazy"; img.decoding="async"; caixa.appendChild(img); }
+  else { const v=document.createElement("div"); v.className="mug-vazio"; v.innerHTML=SILHUETA; caixa.appendChild(v); }
+  const regua=document.createElement("div"); regua.className="mug-regua"; regua.setAttribute("aria-hidden","true");
+  ["1,90","1,80","1,70","1,60"].forEach((t,i)=>{ const e=document.createElement("i"); e.textContent=t; e.style.top=(20*(i+1))+"%"; regua.appendChild(e); });
+  caixa.appendChild(regua);
+  const car=document.createElement("span"); car.className="mug-carimbo"; car.textContent=confirmado?"culpado":"em análise"; caixa.appendChild(car);
+  if(exemplo){ const ex=document.createElement("span"); ex.className="mug-exemplo"; ex.textContent="exemplo"; caixa.appendChild(ex); }
+  const placa=document.createElement("figcaption"); placa.className="mug-placa";
+  const dep=document.createElement("span"); dep.className="mug-dep"; dep.textContent="brasa pd · 01.11.26";
+  const nm=document.createElement("strong"); nm.className="mug-nome"; nm.textContent=nome||"seu nome aqui";
+  const nu=document.createElement("span"); nu.className="mug-num"; nu.textContent="nº "+String(numero).padStart(3,"0");
+  placa.append(dep,nm,nu);
+  fig.append(caixa,placa);
+  return fig;
+}
+
+/* ---------- parede ---------- */
+function renderParede(){
+  const mural=$("#mural"); mural.replaceChildren();
+  culpados.forEach((c,i)=>mural.appendChild(card({nome:c.nome,foto:c.foto,numero:i+1,confirmado:c.confirmado,exemplo:c.exemplo})));
+  const reais = culpados.filter(c=>!c.exemplo).length;
+  $("#mural-vazio").hidden = culpados.length>0;
+  $("#contador").textContent = reais;
+  $("#limite").textContent = CONFIG.LIMITE;
+  $("#termo").style.width = Math.min(100, reais/CONFIG.LIMITE*100) + "%";
+  if(reais >= CONFIG.LIMITE) lotou();
+}
+async function carregarParede(){
+  if(DEMO){ renderParede(); return; }
+  const { data, error } = await sb.from("parede").select("id,nome,foto_path,confirmado,created_at").order("created_at",{ascending:true});
+  if(error){ console.warn(error); return; }
+  culpados = data.map(r=>({nome:r.nome, foto:fotoURL(r.foto_path), confirmado:r.confirmado}));
+  renderParede();
+}
+function lotou(){
+  const f=$("#form"); if(!f) return;
+  $("#ficha-corpo").innerHTML = '<p class="mural-vazio">lotou. as '+CONFIG.LIMITE+' fichas foram preenchidas.</p>';
+}
+
+/* ---------- formulário ---------- */
+const form=$("#form");
+let fotoBlob=null, fotoPrevURL=null, compFile=null;
+
+function mascara(v){
+  const d=v.replace(/\D/g,"").slice(0,11);
+  if(d.length<=2) return d.length?"("+d:"";
+  if(d.length<=6) return "("+d.slice(0,2)+") "+d.slice(2);
+  if(d.length<=10) return "("+d.slice(0,2)+") "+d.slice(2,6)+"-"+d.slice(6);
+  return "("+d.slice(0,2)+") "+d.slice(2,7)+"-"+d.slice(7);
+}
+$("#tel").addEventListener("input",e=>{ e.target.value=mascara(e.target.value); });
+
+function atualizarPrevia(){
+  const n = culpados.filter(c=>!c.exemplo).length + 1;
+  $("#previa-card").replaceChildren(card({nome:$("#nome").value.trim(), foto:fotoPrevURL, numero:n, confirmado:false}));
+}
+$("#nome").addEventListener("input",atualizarPrevia);
+
+async function prepararFoto(file){
+  const url=URL.createObjectURL(file);
+  try{
+    const img=await new Promise((res,rej)=>{ const i=new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=url; });
+    const W=720,H=900,c=document.createElement("canvas"); c.width=W; c.height=H;
+    const ctx=c.getContext("2d"); const r=Math.max(W/img.naturalWidth,H/img.naturalHeight);
+    const w=img.naturalWidth*r,h=img.naturalHeight*r; ctx.drawImage(img,(W-w)/2,(H-h)/2,w,h);
+    return await new Promise(res=>c.toBlob(b=>res(b),"image/jpeg",0.82));
+  } finally { URL.revokeObjectURL(url); }
+}
+$("#foto").addEventListener("change",async e=>{
+  const f=e.target.files[0]; if(!f) return;
+  $("#foto-txt").textContent="processando…";
+  try{
+    fotoBlob=await prepararFoto(f);
+    if(fotoPrevURL) URL.revokeObjectURL(fotoPrevURL);
+    fotoPrevURL=URL.createObjectURL(fotoBlob);
+    $("#foto-txt").textContent=f.name; $("#foto-box").classList.add("ok");
+    atualizarPrevia();
+  }catch(err){
+    fotoBlob=null; $("#foto-txt").textContent="escolher foto"; $("#foto-box").classList.remove("ok");
+    $("#erro").textContent="não deu pra abrir essa foto. tenta um jpg ou png.";
+  }
+});
+$("#comp").addEventListener("change",e=>{
+  const f=e.target.files[0]; if(!f) return;
+  if(f.size > 10*1024*1024){ compFile=null; $("#erro").textContent="o comprovante passou de 10 MB. manda um print."; return; }
+  compFile=f; $("#comp-txt").textContent=f.name; $("#comp-box").classList.add("ok");
+});
+
+function tipoComprovante(f){
+  if(f.type) return f.type;
+  const ext=(f.name.split(".").pop()||"").toLowerCase();
+  return ({pdf:"application/pdf",png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",webp:"image/webp",heic:"image/heic"})[ext]||"image/jpeg";
+}
+
+form.addEventListener("submit",async e=>{
+  e.preventDefault();
+  const erro=$("#erro"); erro.textContent="";
+  const nome=$("#nome").value.trim().replace(/\s+/g," ");
+  const tel=$("#tel").value.replace(/\D/g,"");
+  if(nome.length<2){ erro.textContent="faltou o nome."; $("#nome").focus(); return; }
+  if(tel.length<10){ erro.textContent="o whatsapp precisa de ddd + número."; $("#tel").focus(); return; }
+  if(!fotoBlob){ erro.textContent="manda uma foto pra parede."; return; }
+  if(!compFile){ erro.textContent="anexa o comprovante do pix."; return; }
+  if(!$("#aceite").checked){ erro.textContent="marca que topa aparecer na parede."; return; }
+
+  const btn=$("#btn-enviar"); btn.disabled=true; btn.textContent="fichando…";
+  try{
+    let fotoFinal=fotoPrevURL;
+    if(!DEMO){
+      const id=uid();
+      const fotoPath=id+".jpg";
+      const ext=(compFile.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
+      const compPath=id+"."+ext;
+      let r=await sb.storage.from("fotos").upload(fotoPath,fotoBlob,{contentType:"image/jpeg",upsert:false});
+      if(r.error) throw r.error;
+      r=await sb.storage.from("comprovantes").upload(compPath,compFile,{contentType:tipoComprovante(compFile),upsert:false});
+      if(r.error) throw r.error;
+      const ins=await sb.from("culpados").insert({nome,telefone:tel,foto_path:fotoPath,comprovante_path:compPath});
+      if(ins.error) throw ins.error;
+      fotoFinal=fotoURL(fotoPath);
+    }
+    culpados.push({nome,foto:fotoFinal,confirmado:false});
+    const numero=culpados.filter(c=>!c.exemplo).length;
+    renderParede();
+    sucesso(nome,fotoFinal,numero);
+  }catch(err){
+    console.warn(err);
+    const msg=String(err && (err.message||err.error||err)).toLowerCase();
+    if(msg.includes("lotou")){ lotou(); return; }
+    erro.textContent="não foi dessa vez. confere a internet e tenta de novo.";
+    btn.disabled=false; btn.textContent="me entregar";
+  }
+});
+
+function sucesso(nome,foto,numero){
+  const box=document.createElement("div"); box.className="sucesso";
+  box.appendChild(card({nome,foto,numero,confirmado:false}));
+  const txt=document.createElement("div");
+  txt.innerHTML='<h3>ficha enviada</h3><p>sua cara já tá na parede com o carimbo de em análise. quando o pix for conferido, vira culpado.</p>';
+  const ver=document.createElement("a"); ver.className="btn btn-linha"; ver.href="#parede"; ver.textContent="ver na parede"; ver.style.marginTop="16px";
+  txt.appendChild(ver); box.appendChild(txt);
+  $("#ficha-corpo").replaceChildren(box);
+}
+
+/* ---------- início ---------- */
+if(DEMO){
+  $("#demo").hidden=false;
+  culpados=[{nome:"suspeito 1",foto:null,confirmado:true,exemplo:true},{nome:"suspeita 2",foto:null,confirmado:false,exemplo:true}];
+  renderParede(); atualizarPrevia();
+} else {
+  const s=document.createElement("script");
+  s.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js";
+  s.onload=()=>{ sb=window.supabase.createClient(CONFIG.SUPABASE_URL,CONFIG.SUPABASE_ANON_KEY); carregarParede().then(atualizarPrevia); setInterval(carregarParede,30000); };
+  document.head.appendChild(s);
+  renderParede(); atualizarPrevia();
+}
+
+/* ---------- capa: boca vista por dentro, em retícula ---------- */
+const cv=$("#capa"), cx=cv.getContext("2d");
+const css=getComputedStyle(document.documentElement);
+const COR_FUNDO=css.getPropertyValue("--placa").trim()||"#0a0807", COR_PONTO=css.getPropertyValue("--sangue").trim()||"#c9151b";
+let capaImg=null, ultimaLargura=0;
+function rand(seed){ return ()=>{ seed=(seed*16807)%2147483647; return (seed-1)/2147483646; }; }
+
+function dente(g,x,y,w,h,dir){ // dente arredondado pendurado (dir=1) ou subindo (dir=-1)
+  const gr=g.createLinearGradient(0,y,0,y+h*dir); gr.addColorStop(0,"rgba(255,255,255,.35)"); gr.addColorStop(.55,"rgba(255,255,255,.9)"); gr.addColorStop(1,"rgba(255,255,255,.7)");
+  g.fillStyle=gr; const r=w*.42;
+  g.beginPath(); g.moveTo(x,y); g.lineTo(x,y+(h-r)*dir); g.quadraticCurveTo(x,y+h*dir,x+r,y+h*dir); g.lineTo(x+w-r,y+h*dir); g.quadraticCurveTo(x+w,y+h*dir,x+w,y+(h-r)*dir); g.lineTo(x+w,y); g.closePath(); g.fill();
+  g.strokeStyle="rgba(0,0,0,.8)"; g.lineWidth=Math.max(3,w*.07); g.stroke();
+  const sh=g.createLinearGradient(x,0,x+w,0); sh.addColorStop(0,"rgba(0,0,0,.45)"); sh.addColorStop(.35,"rgba(0,0,0,0)"); sh.addColorStop(1,"rgba(0,0,0,.3)"); g.fillStyle=sh; g.fill();
+}
+function presa(g,x,y,w,h,dir){
+  const gr=g.createLinearGradient(0,y,0,y+h*dir); gr.addColorStop(0,"rgba(255,255,255,.4)"); gr.addColorStop(.4,"rgba(255,255,255,1)"); gr.addColorStop(1,"rgba(255,255,255,.75)");
+  g.fillStyle=gr;
+  g.beginPath(); g.moveTo(x,y); g.lineTo(x+w,y); g.bezierCurveTo(x+w,y+h*.45*dir,x+w*.7,y+h*.8*dir,x+w*.42,y+h*dir); g.bezierCurveTo(x+w*.25,y+h*.7*dir,x,y+h*.4*dir,x,y); g.closePath(); g.fill();
+  // brilho lateral
+  g.strokeStyle="rgba(0,0,0,.55)"; g.lineWidth=Math.max(2,w*.08); g.stroke();
+}
+function desenharBoca(g,W,H){
+  const R=rand(31), mob=W<700;
+  g.fillStyle="#000"; g.fillRect(0,0,W,H);
+  // garganta: brilho vermelho fundo, deslocado pra direita
+  let gr=g.createRadialGradient(W*(mob?.75:.7),H*.55,0,W*(mob?.75:.7),H*.55,Math.max(W,H)*.62);
+  gr.addColorStop(0,"rgba(255,255,255,.3)"); gr.addColorStop(.45,"rgba(255,255,255,.09)"); gr.addColorStop(1,"rgba(255,255,255,0)");
+  g.fillStyle=gr; g.fillRect(0,0,W,H);
+  // manchas (textura de carne / impressão)
+  for(let i=0;i<90;i++){
+    const x=R()*W, y=H*.12+R()*H*.76, r=Math.min(W,H)*(.02+R()*.12), b=R()<.7?"0,0,0":"255,255,255", a=b==="0,0,0"?.12+R()*.2:.04+R()*.1;
+    const gg=g.createRadialGradient(x,y,0,x,y,r); gg.addColorStop(0,"rgba("+b+","+a+")"); gg.addColorStop(1,"rgba("+b+",0)");
+    g.fillStyle=gg; g.beginPath(); g.arc(x,y,r,0,6.283); g.fill();
+  }
+  // língua: elipse escura-média embaixo
+  g.fillStyle="rgba(255,255,255,.1)"; g.beginPath(); g.ellipse(W*(mob?.7:.66),H*1.02,W*(mob?.55:.38),H*.24,0,0,6.283); g.fill();
+  // gengivas
+  const gum=mob?20:28;
+  g.fillStyle="rgba(255,255,255,.3)";
+  g.beginPath(); g.moveTo(0,0); g.lineTo(W,0); g.lineTo(W,gum); for(let x=W;x>=0;x-=W/24) g.lineTo(x,gum+Math.sin(x*.05)*5); g.closePath(); g.fill();
+  g.beginPath(); g.moveTo(0,H); g.lineTo(W,H); g.lineTo(W,H-gum); for(let x=W;x>=0;x-=W/24) g.lineTo(x,H-gum-Math.sin(x*.04)*5); g.closePath(); g.fill();
+  // dentes de cima
+  const tw=mob?66:92, th=mob?46:68, n=Math.ceil(W/tw)+1;
+  const presasCima=mob?[Math.floor(n*.55),n-2]:[Math.floor(n*.58),Math.floor(n*.86)];
+  for(let i=0;i<n;i++){
+    const x=i*tw+(R()-.5)*6;
+    if(presasCima.includes(i)) presa(g,x+tw*.08,gum-6,tw*.84,(mob?118:190)*(0.92+R()*.16),1);
+    else dente(g,x+tw*.06,gum-6,tw*.88,th*(.82+R()*.35),1);
+  }
+  // dentes de baixo
+  const bw=mob?58:80, bh=mob?36:52, m=Math.ceil(W/bw)+1;
+  const presasBaixo=mob?[Math.floor(m*.4),m-3]:[Math.floor(m*.5),Math.floor(m*.78)];
+  for(let i=0;i<m;i++){
+    const x=i*bw+bw*.3+(R()-.5)*6;
+    if(presasBaixo.includes(i)) presa(g,x+bw*.1,H-gum+6,bw*.8,(mob?78:116)*(0.9+R()*.2),-1);
+    else dente(g,x+bw*.06,H-gum+6,bw*.88,bh*(.8+R()*.35),-1);
+  }
+  // sombra entre os dentes e o fundo
+  gr=g.createLinearGradient(0,0,0,H*.35); gr.addColorStop(0,"rgba(0,0,0,0)"); gr.addColorStop(1,"rgba(0,0,0,.25)");
+}
+function desenharCapa(){
+  const W=cv.clientWidth, H=cv.clientHeight; if(!W||!H) return;
+  const dpr=Math.min(2,window.devicePixelRatio||1);
+  cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); cx.setTransform(dpr,0,0,dpr,0,0);
+  const cel=W<700?4.4:5.4;
+  const A=document.createElement("canvas"); A.width=W; A.height=H; const a=A.getContext("2d");
+  if(capaImg){
+    const r=Math.max(W/capaImg.naturalWidth,H/capaImg.naturalHeight), w=capaImg.naturalWidth*r, h=capaImg.naturalHeight*r;
+    a.filter="grayscale(1) contrast(1.3) brightness(.9)"; a.drawImage(capaImg,(W-w)*.75,(H-h)/2,w,h); a.filter="none";
+  } else desenharBoca(a,W,H);
+  const cols=Math.ceil(W/cel)+2, rows=Math.ceil(H/cel)+2;
+  const B=document.createElement("canvas"); B.width=cols; B.height=rows; const b=B.getContext("2d");
+  b.drawImage(A,0,0,cols,rows);
+  const px=b.getImageData(0,0,cols,rows).data;
+  cx.fillStyle=COR_FUNDO; cx.fillRect(0,0,W,H);
+  cx.fillStyle=COR_PONTO;
+  const R=rand(7);
+  for(let y=0;y<rows;y++){
+    const off=(y%2)?cel/2:0;
+    for(let x=0;x<cols;x++){
+      const i=(y*cols+x)*4; let L=(px[i]*.3+px[i+1]*.59+px[i+2]*.11)/255;
+      L=Math.min(1,Math.max(0,(L-.1)*1.3+(R()-.5)*.12));
+      const r=cel*.76*Math.sqrt(L); if(r<.4) continue;
+      cx.beginPath(); cx.arc(x*cel+off,y*cel,r,0,6.283); cx.fill();
+    }
+  }
+  // granulado de xerox por cima (em pixel real)
+  try{
+    const img=cx.getImageData(0,0,cv.width,cv.height), d=img.data;
+    for(let i=0;i<d.length;i+=4){
+      const q=Math.random();
+      if(q<.035){ d[i]=d[i+1]=d[i+2]=8; }
+      else if(q<.045){ d[i]=Math.min(255,d[i]+90); d[i+1]=Math.min(255,d[i+1]+40); d[i+2]=Math.min(255,d[i+2]+40); }
+      else { const n=(Math.random()-.5)*34; d[i]=Math.max(0,Math.min(255,d[i]+n)); d[i+1]=Math.max(0,Math.min(255,d[i+1]+n*.6)); d[i+2]=Math.max(0,Math.min(255,d[i+2]+n*.6)); }
+    }
+    cx.putImageData(img,0,0);
+  }catch(e){}
+}
+function capaPronta(){ ultimaLargura=cv.clientWidth; desenharCapa(); }
+if(CONFIG.CAPA){
+  const im=new Image(); im.onload=()=>{ capaImg=im; capaPronta(); }; im.onerror=capaPronta; im.src=CONFIG.CAPA;
+} else capaPronta();
+addEventListener("resize",()=>{ clearTimeout(desenharCapa._t); desenharCapa._t=setTimeout(()=>{ if(Math.abs(cv.clientWidth-ultimaLargura)>2) capaPronta(); },180); });
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>{ if(cv.clientWidth!==ultimaLargura) capaPronta(); });
+})();
+</script>
+
+</body>
+</html>

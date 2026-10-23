@@ -582,10 +582,41 @@ $("#comp").addEventListener("change",e=>{
   compFile=f; $("#comp-txt").textContent=f.name; $("#comp-box").classList.add("ok");
 });
 
-function tipoComprovante(f){
-  if(f.type) return f.type;
+const TIPOS_OK=["image/jpeg","image/png","image/webp","image/heic","image/heif","application/pdf"];
+function tipoSeguro(f){
+  const t=(f.type||"").toLowerCase();
+  if(t==="image/jpg"||t==="image/pjpeg") return "image/jpeg";
+  if(t==="image/x-png") return "image/png";
+  if(TIPOS_OK.includes(t)) return t;
   const ext=(f.name.split(".").pop()||"").toLowerCase();
-  return ({pdf:"application/pdf",png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",webp:"image/webp",heic:"image/heic"})[ext]||"image/jpeg";
+  return ({pdf:"application/pdf",png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",webp:"image/webp",heic:"image/heic",heif:"image/heif"})[ext]||null;
+}
+const EXT_DO_TIPO={"image/jpeg":"jpg","image/png":"png","image/webp":"webp","image/heic":"heic","image/heif":"heif","application/pdf":"pdf"};
+
+async function comprimirImagem(file,max,q){
+  const url=URL.createObjectURL(file);
+  try{
+    const img=await new Promise((res,rej)=>{ const i=new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=url; });
+    const k=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+    const c=document.createElement("canvas"); c.width=Math.max(1,Math.round(img.naturalWidth*k)); c.height=Math.max(1,Math.round(img.naturalHeight*k));
+    const ctx=c.getContext("2d"); ctx.fillStyle="#fff"; ctx.fillRect(0,0,c.width,c.height); ctx.drawImage(img,0,0,c.width,c.height);
+    const b=await new Promise(res=>c.toBlob(x=>res(x),"image/jpeg",q));
+    if(!b) throw new Error("canvas vazio");
+    return b;
+  } finally { URL.revokeObjectURL(url); }
+}
+const espera=ms=>new Promise(r=>setTimeout(r,ms));
+async function subir(bucket,path,blob,type){
+  for(let i=0;i<3;i++){
+    let r; try{ r=await sb.storage.from(bucket).upload(path,blob,{contentType:type,upsert:false}); }
+    catch(e){ r={error:e}; }
+    if(!r.error) return;
+    const m=String(r.error.message||r.error).toLowerCase();
+    if(m.includes("exist")||m.includes("duplicate")) return;
+    const rede=/fetch|network|failed|timeout|load|abort/.test(m);
+    if(!rede||i===2){ r.error.etapa=bucket; throw r.error; }
+    await espera(1500*(i+1));
+  }
 }
 
 form.addEventListener("submit",async e=>{
@@ -599,20 +630,23 @@ form.addEventListener("submit",async e=>{
   if(!compFile){ erro.textContent="anexa o comprovante do pix."; return; }
   if(!$("#aceite").checked){ erro.textContent="marca que topa aparecer na parede."; return; }
 
-  const btn=$("#btn-enviar"); btn.disabled=true; btn.textContent="fichando…";
+  const btn=$("#btn-enviar"); btn.disabled=true; btn.textContent="preparando…";
   try{
     let fotoFinal=fotoPrevURL;
     if(!DEMO){
-      const id=uid();
-      const fotoPath=id+".jpg";
-      const ext=(compFile.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"")||"jpg";
-      const compPath=id+"."+ext;
-      let r=await sb.storage.from("fotos").upload(fotoPath,fotoBlob,{contentType:"image/jpeg",upsert:false});
-      if(r.error) throw r.error;
-      r=await sb.storage.from("comprovantes").upload(compPath,compFile,{contentType:tipoComprovante(compFile),upsert:false});
-      if(r.error) throw r.error;
+      let compBlob=compFile, compTipo=tipoSeguro(compFile);
+      if(!compTipo) throw Object.assign(new Error("formato do comprovante não aceito"),{etapa:"formato"});
+      if(compTipo.startsWith("image/")){
+        try{ compBlob=await comprimirImagem(compFile,1600,.8); compTipo="image/jpeg"; }catch(_){ /* manda o original */ }
+      }
+      const id=uid(), fotoPath=id+".jpg", compPath=id+"."+EXT_DO_TIPO[compTipo];
+      btn.textContent="enviando foto…";
+      await subir("fotos",fotoPath,fotoBlob,"image/jpeg");
+      btn.textContent="enviando comprovante…";
+      await subir("comprovantes",compPath,compBlob,compTipo);
+      btn.textContent="fichando…";
       const ins=await sb.from("culpados").insert({nome,telefone:tel,foto_path:fotoPath,comprovante_path:compPath});
-      if(ins.error) throw ins.error;
+      if(ins.error){ ins.error.etapa="ficha"; throw ins.error; }
       fotoFinal=fotoURL(fotoPath);
     }
     culpados.push({nome,foto:fotoFinal,confirmado:false});
@@ -621,9 +655,13 @@ form.addEventListener("submit",async e=>{
     sucesso(nome,fotoFinal,numero);
   }catch(err){
     console.warn(err);
-    const msg=String(err && (err.message||err.error||err)).toLowerCase();
+    const det=String((err&&(err.message||err.error))||err||"").trim();
+    const msg=det.toLowerCase();
     if(msg.includes("lotou")){ lotou(); return; }
-    erro.textContent="não foi dessa vez. confere a internet e tenta de novo.";
+    const rede=/fetch|network|failed|timeout|load|abort/.test(msg);
+    const onde={fotos:"a foto não subiu",comprovantes:"o comprovante não subiu",ficha:"não consegui salvar a ficha",formato:"esse formato de comprovante não é aceito"}[err&&err.etapa]||"o envio falhou";
+    const dica=err&&err.etapa==="formato"?" manda um print (png ou jpg) ou pdf.":(rede?" a conexão caiu no meio. tenta de novo.":" tenta de novo.");
+    erro.textContent=onde+"."+dica+(det&&!rede&&err.etapa!=="formato"?" ["+det.slice(0,80)+"]":"");
     btn.disabled=false; btn.textContent="me entregar";
   }
 });

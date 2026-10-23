@@ -254,7 +254,7 @@ p{margin:0}
       <a class="etq" href="#ficha">quero ir pra esse babado· r$ 16,50</a>
       <a class="etq etq-escura" href="#parede">ver a parede de culpados</a>
     </nav>
-    <span class="etq etq-base" id="local-etq">salão de festas · parque renascença florença</span>
+    <a class="etq etq-base" id="local-etq" href="https://maps.app.goo.gl/hGwbAvB8Gfv8we1CA" target="_blank" rel="noopener">salão de festas · parque renascença florença ↗</a>
   </div>
 </header>
 
@@ -423,7 +423,8 @@ const CONFIG = {
   VALOR: 16.50,
   LIMITE: 50,
   DATA_FESTA: "2026-11-01T20:30:00-03:00",
-  LOCAL: "salão de festas do parque renascença florença", // aparece embaixo da contagem (o texto da abertura fica no HTML, na etiqueta local-etq)
+  LOCAL: "salão de festas do parque renascença florença", // aparece embaixo da contagem
+  MAPS_URL: "https://maps.app.goo.gl/hGwbAvB8Gfv8we1CA",
   CAPA: ""                      // opcional: caminho de uma foto (ex: "capa.jpg") pra virar a retícula da abertura
 };
 
@@ -466,7 +467,12 @@ catch(e){ $("#pix-qr").hidden = true; }
 
 /* ---------- contagem ---------- */
 const alvo = Date.parse(CONFIG.DATA_FESTA);
-if(CONFIG.LOCAL){ $("#local-linha").textContent = " · " + CONFIG.LOCAL; }
+if(CONFIG.LOCAL){
+  const ln=$("#local-linha"); ln.append(" · ");
+  if(CONFIG.MAPS_URL){ const a=document.createElement("a"); a.href=CONFIG.MAPS_URL; a.target="_blank"; a.rel="noopener"; a.textContent=CONFIG.LOCAL+" ↗"; a.style.color="var(--osso)"; ln.append(a); }
+  else ln.append(CONFIG.LOCAL);
+}
+{ const le=$("#local-etq"); if(le && CONFIG.MAPS_URL) le.href=CONFIG.MAPS_URL; }
 function tique(){
   const diff = alvo - Date.now();
   if(diff <= 0){
